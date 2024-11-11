@@ -41,7 +41,7 @@ def dijkstra_completo(grafo, candidatos_df, escolas_df):
     # Dicionário para verificar se o candidato já foi alocado
     candidatos_alocados = set()
 
-    # Executa o Dijkstra completo
+    # Executa o Dijkstra
     while heap and len(candidatos_alocados) < len(candidatos_df):
         distancia, candidato_nome, idx_escola, nome_escola = heapq.heappop(heap)
         
