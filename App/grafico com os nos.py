@@ -20,8 +20,11 @@ mapa = folium.Map(location=[media_latitude, media_longitude], zoom_start=10)
 marcadores_escolas = {}
 marcadores_candidatos = {}
 
-# Função para aplicar jitter (leve deslocamento)
-def apply_jitter(lat, lon, jitter_amount=0.0100):
+# Função para aplicar jitter condicional com base na densidade
+def apply_jitter_conditional(lat, lon, candidates_df, jitter_base=0.0100):
+    # Contar candidatos com a mesma localização para calcular densidade
+    same_location_count = candidates_df[(candidates_df['Latitude'] == lat) & (candidates_df['Longitude'] == lon)].shape[0]
+    jitter_amount = jitter_base / max(same_location_count, 1)  # Reduz o jitter para maior densidade
     return lat + np.random.uniform(-jitter_amount, jitter_amount), lon + np.random.uniform(-jitter_amount, jitter_amount)
 
 # Iterar pelas entradas do arquivo de alocação
@@ -42,9 +45,13 @@ for _, row in alocacoes_df.iterrows():
         ).add_to(mapa)
         marcadores_escolas[nome_escola] = (escola_info['Latitude'], escola_info['Longitude'])
 
-    # Marcar o candidato com jitter se ainda não foi marcado
+    # Marcar o candidato com jitter condicional se ainda não foi marcado
     if nome_candidato not in marcadores_candidatos:
-        lat_jitter, lon_jitter = apply_jitter(candidato_info['Latitude'], candidato_info['Longitude'])
+        lat_jitter, lon_jitter = apply_jitter_conditional(
+            candidato_info['Latitude'], 
+            candidato_info['Longitude'], 
+            candidatos_df
+        )
         folium.Marker(
             location=[lat_jitter, lon_jitter],
             popup=nome_candidato,
