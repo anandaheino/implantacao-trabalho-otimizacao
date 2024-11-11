@@ -3,6 +3,10 @@ from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from geopy.exc import GeocoderTimedOut
 import os
+from pathlib import Path
+
+
+project_root = Path(__file__).resolve().parent.parent
 
 # Configuração do geocodificador
 geolocator = Nominatim(user_agent="cep_to_latlon_converter")
@@ -25,8 +29,8 @@ def get_lat_lon(cep):
         return None, None
 
 # Caminho dos arquivos
-file_path = r'C:\Users\lukas\Desktop\candidatos_concurso.csv'
-output_file_path = r'C:\Users\lukas\Desktop\candidatos_concurso_gps.csv'
+file_path = rf'{project_root}\dados\candidatos_concurso.csv'
+output_file_path = rf'{project_root}\dados\candidatos_concurso_gps.csv'
 
 # Carregar o arquivo original ou o de progresso, se já existir
 if os.path.exists(output_file_path):

@@ -3,8 +3,8 @@ import folium
 
 relative_path = '../dados/'
 # Carregar os dados de escolas e candidatos
-escolas_df = pd.read_csv(relative_path+'Escolas_com_vagas_gps - Copia.csv')
-candidatos_df = pd.read_csv(relative_path+'candidatos_concurso_lat_long.csv')
+escolas_df = pd.read_csv(relative_path+'micro_Escolas_com_vagas_gps.csv')
+candidatos_df = pd.read_csv(relative_path+'micro_candidatos_concurso_lat_long.csv')
 alocacoes_df = pd.read_csv(relative_path+'alocacao_candidatos_escolas.csv')
 
 # Inicializar o mapa centrado em uma posição média

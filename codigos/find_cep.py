@@ -2,10 +2,13 @@ import pandas as pd
 import numpy as np
 import requests
 from datetime import datetime
+from pathlib import Path
+
+project_root = Path(__file__).resolve().parent.parent
 
 # abrindo os dados dos candidatos e ceps já consolidados em csv
-df_candidatos = pd.read_csv('../dados/candidatos_concurso.csv', sep=',')
-df_ceps = pd.read_csv('../dados/CEP_lat_long_1000.csv', sep=',')
+df_candidatos = pd.read_csv(f'{project_root}/dados/candidatos_concurso.csv', sep=',')
+df_ceps = pd.read_csv(f'{project_root}/dados/CEP_lat_long_1000.csv', sep=',')
 
 #_____________________________________________________
 # preencher a chave API
@@ -45,6 +48,7 @@ for cep in LIST_CEPS[:1000]:
     list_lat_long.append(dict_lat_long)
 
 df_lat_long = pd.DataFrame(list_lat_long)
-df_lat_long.to_csv(f'../dados/CEP_lat_long_{datetime.now().strftime("%Y-%m-%d %H:%M:%S").replace("-","").replace(" ","-").replace(":","")}.csv', index=False)
+df_lat_long.to_csv(f'{project_root}/dados/CEP_lat_long_{datetime.now().strftime("%Y-%m-%d %H:%M:%S").replace("-","").replace(" ","-").replace(":","")}.csv', index=False)
 
-print(f"Arquivo salvo em ../dados/CEP_lat_long_{datetime.now().strftime("%Y-%m-%d %H:%M:%S").replace("-","").replace(" ","-").replace(":","")}.csv")
+print(f"Arquivo salvo em /dados/CEP_lat_long_{datetime.now().strftime('%Y-%m-%d %H:%M:%S').replace('-', '').replace(' ', '-').replace(':', '')}.csv")
+
