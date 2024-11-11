@@ -2,17 +2,15 @@ import pandas as pd
 from geopy.distance import geodesic
 import heapq
 
-
-relative_path = '../dados/'
 # Carregar os dados de escolas e candidatos
-escolas_df = pd.read_csv(relative_path+'Escolas_com_vagas_gps - Copia.csv')
-candidatos_df = pd.read_csv(relative_path+'candidatos_concurso_lat_long.csv')
+escolas_df = pd.read_csv(r'C:\Users\lukas\Desktop\Escolas_com_vagas_gps - Copia.csv')
+candidatos_df = pd.read_csv(r'C:\Users\lukas\Desktop\candidatos_concurso_gps - Copia.csv')
 
 # Função para calcular a distância entre duas coordenadas geográficas
 def calcular_distancia(coord1, coord2):
     return geodesic(coord1, coord2).kilometers
 
-# Pre-computar as distâncias entre cada candidato e cada escola
+# Pré-computar as distâncias entre cada candidato e cada escola
 distancias = []
 for _, candidato in candidatos_df.iterrows():
     coord_candidato = (candidato['Latitude'], candidato['Longitude'])
@@ -46,8 +44,9 @@ def dijkstra_para_candidato(candidato_nome, distancias_df, escolas_df):
 
     return None, None, None  # Caso não haja escola com vagas
 
-# Lista para armazenar as alocações
+# Lista para armazenar as alocações e variável para a distância total
 alocacoes = []
+distancia_total = 0
 
 # Processar cada candidato e alocar na escola mais próxima disponível
 for _, candidato in candidatos_df.iterrows():
@@ -61,11 +60,16 @@ for _, candidato in candidatos_df.iterrows():
             'Distancia_km': distancia_mais_proxima
         })
         
+        # Incrementar a distância total
+        distancia_total += distancia_mais_proxima
+
         # Reduzir o número de vagas na escola escolhida
         escolas_df.at[idx_escola_mais_proxima, 'Vagas'] -= 1
 
 # Salvar as alocações em um arquivo CSV
 alocacoes_df = pd.DataFrame(alocacoes)
-alocacoes_df.to_csv(relative_path+'alocacao_candidatos_escolas.csv', index=False)
+alocacoes_df.to_csv(r'C:\Users\lukas\Desktop\alocacao_candidatos_escolas.csv', index=False)
 
-print(f"Alocações registradas em {relative_path}alocacao_candidatos_escolas.csv'")
+# Exibir a distância total
+print("Alocações registradas em 'C:\\Users\\lukas\\Desktop\\alocacao_candidatos_escolas.csv'")
+print(f"Distância total: {distancia_total} km")
