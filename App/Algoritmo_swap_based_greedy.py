@@ -15,8 +15,14 @@ start_time = time.time()
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Carregar os dados de escolas e candidatos
-escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_gps.csv'))
-candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_gps.csv'))
+# escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_gps.csv'))
+# candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_gps.csv'))
+
+# escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_300.csv'), encoding='latin1')
+# candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_1000.csv'), encoding='latin1')
+
+escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_208.csv'), encoding='latin1')
+candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_30000.csv'), encoding='latin1')
 
 # Configurar a projeção UTM para a zona 23S (apropriada para o Rio de Janeiro e região)
 utm_proj = Proj(proj="utm", zone=23, south=True, ellps="WGS84")
