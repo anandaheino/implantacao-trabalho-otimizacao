@@ -24,7 +24,7 @@ for _, candidato in candidatos_df.iterrows():
         distancia = calcular_distancia(coord_candidato, coord_escola)
         grafo[candidato['Nome']].append((distancia, idx, escola['Nome_Escola']))
 
-# Função para o algoritmo de Dijkstra completo com atualizações de capacidade
+# Função para o algoritmo de Dijkstra com atualizações de capacidade
 def dijkstra_completo(grafo, candidatos_df, escolas_df):
     alocacoes = []
     distancia_total = 0
@@ -65,7 +65,7 @@ def dijkstra_completo(grafo, candidatos_df, escolas_df):
     
     return alocacoes, distancia_total
 
-# Executa o Dijkstra completo e obtém as alocações e a distância total
+# Executa o Dijkstra e obtém as alocações e a distância total
 alocacoes, distancia_total = dijkstra_completo(grafo, candidatos_df, escolas_df)
 
 # Salvar as alocações em um arquivo CSV
