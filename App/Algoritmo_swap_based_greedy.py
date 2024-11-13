@@ -6,7 +6,11 @@ from scipy.spatial.distance import euclidean
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-
+# alocacoes.append({
+#     'Nome_Candidato': candidato_nome,
+#     'Escola_Alocada': nome_escola,
+#     'Distancia_km': distancia
+# })
 # Caminho relativo ao diretório do script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -34,7 +38,7 @@ escolas_df[['UTM_X', 'UTM_Y']] = escolas_df.apply(lambda row: converter_para_utm
 
 # Função para calcular a distância total de uma alocação
 def calcular_distancia_total(alocacao):
-    distancia_total = sum([a['distancia'] for a in alocacao])
+    distancia_total = sum([a['Distancia_km'] for a in alocacao])
     return distancia_total
 
 # Função de alocação inicial (baseada na menor distância para cada candidato)
@@ -48,7 +52,7 @@ def alocacao_inicial():
             if distancia < menor_distancia:
                 menor_distancia = distancia
                 melhor_escola = j
-        alocacao.append({'candidato': i, 'escola': melhor_escola, 'distancia': menor_distancia})
+        alocacao.append({'Nome_Candidato': i, 'Escola_Alocada': melhor_escola, 'Distancia_km': menor_distancia})
     return alocacao
 
 # Implementação do algoritmo Swap-based Greedy
@@ -66,17 +70,17 @@ def swap_based_greedy():
                 alocacao_temp[i], alocacao_temp[j] = alocacao_temp[j], alocacao_temp[i]
 
                 # Recalcula a distância para os candidatos trocados
-                candidato_i = candidatos_df.iloc[alocacao_temp[i]['candidato']]
-                candidato_j = candidatos_df.iloc[alocacao_temp[j]['candidato']]
+                candidato_i = candidatos_df.iloc[alocacao_temp[i]['Nome_Candidato']]
+                candidato_j = candidatos_df.iloc[alocacao_temp[j]['Nome_Candidato']]
                 
-                escola_i = escolas_df.iloc[alocacao_temp[i]['escola']]
-                escola_j = escolas_df.iloc[alocacao_temp[j]['escola']]
+                escola_i = escolas_df.iloc[alocacao_temp[i]['Escola_Alocada']]
+                escola_j = escolas_df.iloc[alocacao_temp[j]['Escola_Alocada']]
                 
                 distancia_i = euclidean((candidato_i['UTM_X'], candidato_i['UTM_Y']), (escola_i['UTM_X'], escola_i['UTM_Y'])) / 1000
                 distancia_j = euclidean((candidato_j['UTM_X'], candidato_j['UTM_Y']), (escola_j['UTM_X'], escola_j['UTM_Y'])) / 1000
                 
-                alocacao_temp[i]['distancia'] = distancia_i
-                alocacao_temp[j]['distancia'] = distancia_j
+                alocacao_temp[i]['Distancia_km'] = distancia_i
+                alocacao_temp[j]['Distancia_km'] = distancia_j
 
                 nova_distancia_total = calcular_distancia_total(alocacao_temp)
 
