@@ -101,5 +101,14 @@ print(f"Distância total Swap Based Greedy: {round(melhor_distancia_total,0)} km
 
 # Salvar a melhor alocação em um arquivo CSV
 melhor_alocacao_df = pd.DataFrame(melhor_alocacao)
+
+# Map do nome do candidato com o indice
+dict_nome_candidato = candidatos_df['Nome'].to_dict()
+melhor_alocacao_df['Nome_Candidato'] = melhor_alocacao_df['Nome_Candidato'].map(dict_nome_candidato)
+
+# Map do nome da escola com o indice
+dict_nome_escola = escolas_df['Nome_Escola'].to_dict()
+melhor_alocacao_df['Escola_Alocada'] = melhor_alocacao_df['Escola_Alocada'].map(dict_nome_escola)
+
 melhor_alocacao_df.to_csv(os.path.join(script_dir, 'melhor_alocacao_swap_based_greedy.csv'), index=False)
 print("Arquivo 'melhor_alocacao_swap_based_greedy.csv' gerado com sucesso.")
