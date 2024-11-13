@@ -5,23 +5,18 @@ from scipy.spatial.distance import euclidean
 # removendo futurewarning
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
+import time
 
-# alocacoes.append({
-#     'Nome_Candidato': candidato_nome,
-#     'Escola_Alocada': nome_escola,
-#     'Distancia_km': distancia
-# })
+
+# tempo inicial
+start_time = time.time()
+
 # Caminho relativo ao diretório do script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# for rodada in range(1, 11):
 # Carregar os dados de escolas e candidatos
 escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_gps.csv'))
 candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_gps.csv'))
-
-# # randomizando o dataframe de candidatos
-# candidatos_df = candidatos_df.sample(frac=1).reset_index(drop=True)
-# escolas_df = escolas_df.sample(frac=1).reset_index(drop=True)
 
 # Configurar a projeção UTM para a zona 23S (apropriada para o Rio de Janeiro e região)
 utm_proj = Proj(proj="utm", zone=23, south=True, ellps="WGS84")
@@ -112,3 +107,9 @@ melhor_alocacao_df['Escola_Alocada'] = melhor_alocacao_df['Escola_Alocada'].map(
 
 melhor_alocacao_df.to_csv(os.path.join(script_dir, 'melhor_alocacao_swap_based_greedy.csv'), index=False)
 print("Arquivo 'melhor_alocacao_swap_based_greedy.csv' gerado com sucesso.")
+
+# tempo final
+tempo_final = time.time()
+t_min = (tempo_final - start_time) // 60
+t_sec = (tempo_final - start_time) % 60
+print(f"Tempo total de processamento: {t_min:.0f} minuto(s) e {t_sec:.2f} segundo(s).")
