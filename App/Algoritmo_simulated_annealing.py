@@ -37,9 +37,9 @@ def alocacao_inicial():
 
 # Função de busca Simulated Annealing
 def simulated_annealing_search(
-    temperatura_inicial=temperatura_inicial, 
-    taxa_resfriamento=taxa_resfriamento, 
-    max_iter=max_iter
+    temperatura_inicial, 
+    taxa_resfriamento, 
+    max_iter
 ):
     # Iniciando a alocação inicial e a melhor distância total
     alocacao = alocacao_inicial()
@@ -88,8 +88,8 @@ if __name__ == '__main__':
     # Caminho relativo ao diretório do script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     # setando o numero de candidatos pelo nome do dataset
-    n_candidatos = 30000
-    escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_204.csv'), encoding='latin1')
+    n_candidatos = 3000
+    escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_150.csv'), encoding='latin1')
     candidatos_df = pd.read_csv(os.path.join(script_dir, f'candidatos_{n_candidatos}.csv'), encoding='latin1')
 
     # Configurar a projeção UTM para a zona 23S (apropriada para o Rio de Janeiro e região)
@@ -106,7 +106,7 @@ if __name__ == '__main__':
     taxa_resfriamento = 0.9
 
     # Executar o algoritmo e exibir o resultado
-    melhor_alocacao, melhor_distancia_total = simulated_annealing_search()
+    melhor_alocacao, melhor_distancia_total = simulated_annealing_search(temperatura_inicial, taxa_resfriamento, max_iter)
 
     print(f"Distância total Simulated Annealing: {round(melhor_distancia_total,0)} km")
     print("Máx iterações:",max_iter)
