@@ -7,9 +7,9 @@ import numpy as np
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Carregar os dados de escolas, candidatos e alocações
-escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_gps.csv'))
-candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_gps.csv'))
-alocacoes_df = pd.read_csv(os.path.join(script_dir, 'alocacao_candidatos_escolas.csv'))
+escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_150_gps.csv'))
+candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_3000_gps.csv'))
+alocacoes_df = pd.read_csv(os.path.join(script_dir, 'alocacao_candidatos_escolas_otimizado_distancia_total.csv'))
 
 # Inicializar o mapa centrado em uma posição média
 media_latitude = (escolas_df['Latitude'].mean() + candidatos_df['Latitude'].mean()) / 2
@@ -68,6 +68,6 @@ for _, row in alocacoes_df.iterrows():
     ).add_to(mapa)
 
 # Caminho de salvamento para o arquivo HTML na mesma pasta do script
-mapa_output_path = os.path.join(script_dir, 'alocacao_candidatos_escolas_mapa.html')
+mapa_output_path = os.path.join(script_dir, 'alocacao_candidatos_escolas_mapa_hungaro.html')
 mapa.save(mapa_output_path)
 print(f"Mapa de alocações salvo em '{mapa_output_path}'")

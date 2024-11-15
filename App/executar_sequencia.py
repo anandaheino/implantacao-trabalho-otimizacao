@@ -9,9 +9,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 # Lista dos scripts a serem executados na ordem desejada
 scripts = [
     #os.path.join(script_dir, 'gerar posição gps.py'),
-    #os.path.join(script_dir, 'Algoritmo_Ensalamento.py'),
-    #os.path.join(script_dir, 'Algoritmo Dijkstra.py'),
-    os.path.join(script_dir, 'Algoritmo HAG.py'),
+    os.path.join(script_dir, 'Algoritmo Hungaro.py'),
     os.path.join(script_dir, 'grafico com os nos.py')
 ]
 
