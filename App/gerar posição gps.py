@@ -64,5 +64,5 @@ def processar_arquivo(file_name, output_name):
     print(f"Processamento do arquivo '{file_name}' completo. Progresso salvo em '{output_name}'.")
 
 # Processar os arquivos de candidatos e escolas
-processar_arquivo('candidatos_1000.csv', 'candidatos_1000_gps.csv')
-#processar_arquivo('escolas_300.csv', 'escolas_300_gps.csv')
+processar_arquivo('candidatos_3000.csv', 'candidatos_3000_gps.csv')
+processar_arquivo('escolas_150.csv', 'escolas_150_gps.csv')
