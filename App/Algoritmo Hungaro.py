@@ -10,8 +10,8 @@ import numpy as np
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Carregar os dados de escolas e candidatos
-escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_150_gps.csv'))
-candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_3000_gps.csv'))
+escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_131_gps.csv'))
+candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_1000_gps.csv'))
 
 # Configurar as projeções e o transformador UTM para a zona 23S (Rio de Janeiro e região)
 utm_proj = Proj(proj="utm", zone=23, south=True, ellps="WGS84")
@@ -35,7 +35,7 @@ def construir_matriz_expandida(candidatos_df, escolas_df):
     matriz_distancias_expandida = []
     escolas_expandida = []
 
-    for _, candidato in tqdm(candidatos_df.iterrows(), total=len(candidatos_df), desc="Calculando matriz expandida de distâncias"):
+    for _, candidato in tqdm(candidatos_df.iterrows(), total=len(candidatos_df), desc="Calculando ..."):
         distancias_candidato = []
         for escola_idx, escola in escolas_df.iterrows():
             num_vagas = escola['Vagas']

@@ -7,8 +7,8 @@ import numpy as np
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Carregar os dados de escolas, candidatos e alocações
-escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_150_gps.csv'))
-candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_3000_gps.csv'))
+escolas_df = pd.read_csv(os.path.join(script_dir, 'escolas_131_gps.csv'))
+candidatos_df = pd.read_csv(os.path.join(script_dir, 'candidatos_1000_gps.csv'))
 alocacoes_df = pd.read_csv(os.path.join(script_dir, 'alocacao_candidatos_escolas_otimizado_distancia_total.csv'))
 
 # Inicializar o mapa centrado em uma posição média
